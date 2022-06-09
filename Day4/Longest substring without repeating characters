@@ -1,0 +1,20 @@
+#include <bits/stdc++.h> 
+int uniqueSubstrings(string input)
+{
+    //Write your code here
+    int i=0,j=input.size();
+    int k=0,max_len=0;
+    set<char> s;
+    while(i<j){
+        if(s.find(input[i])==s.end()){
+            s.insert(input[i]);
+            i++;
+            max_len=max(max_len,(int)s.size());
+        }
+        else{
+            s.erase(input[k]);
+            k++;
+        }
+    }
+    return max_len;
+}
