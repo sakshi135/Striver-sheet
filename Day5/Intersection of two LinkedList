@@ -26,5 +26,6 @@ int findIntersection(Node *firstHead, Node *secondHead)
         A=A==NULL?secondHead:A->next;
         B=B==NULL?firstHead:B->next;
     }
-    return A->data;
+    if(A==NULL)return -1;
+    else return A->data;
 }
