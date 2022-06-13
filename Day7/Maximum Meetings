@@ -1,0 +1,41 @@
+#include<algorithm>
+bool compare(vector<int>&a,vector<int>&b) {
+   if(a[2]==b[2])return a[0]<b[0];
+     else   return a[2]< b[2];
+    
+}
+vector<int> maximumMeetings(vector<int> &start, vector<int> &end) {
+    // Write your code here.
+    vector<vector<int>>v;
+    for(int i=0;i<start.size();i++){
+        v.push_back({i+1,start[i],end[i]});
+        
+    }
+    sort(v.begin(),v.end(),compare);
+    vector<int> ans;
+   
+//     int prev=v[0].first;
+//     int last=v[0].second;
+//     ans.push_back(1);
+//     for(int i=1;i<v.size();i++){
+//        if(v[i].first==prev)continue;
+//         if(v[i].first<=last){
+//             if(v[i].second<last)last=v[i].second;
+//         }
+//         else{
+//             prev=v[i].first;
+//             last=v[i].second;
+//             ans.push_back(i);
+//         }
+//     }
+    ans.push_back(v[0][0]);
+    int currTime=v[0][2];
+    for(int i=1;i<v.size();i++){
+        if(v[i][1]>currTime)
+        {   ans.push_back(v[i][0]);
+         currTime=v[i][2];
+        }
+        
+    }
+    return ans;
+}
