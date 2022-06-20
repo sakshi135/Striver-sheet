@@ -1,0 +1,20 @@
+int search(int* arr, int n, int key) {
+    // Write your code here.
+    int start=0,last=n-1;
+    while(start<last){
+        int mid=(start+last)/2;
+        if(arr[mid]>arr[last])start=mid+1;
+        else last=mid;
+            
+    }
+    int rot=start;
+    start=0,last=n-1;
+    while(start<=last){
+      int mid=(start+last)/2;
+        int newmid=(mid+rot)%n;
+        if(arr[newmid]==key)return newmid;
+        else if(arr[newmid]<key)start=mid+1;
+        else last=mid-1;
+    }
+    return -1;
+}
