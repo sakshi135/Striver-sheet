@@ -1,0 +1,43 @@
+int ninjaAndLadoos(vector<int> &row1, vector<int> &row2, int m, int n, int k) {
+    // Write your code here.
+//     int count=0;
+//     int i=0,j=0;
+//     int res=0;
+//     while(i<m&&j<n&&count<k){
+//         if(row1[i]<row2[j])
+//            res=row1[i++];
+//         else res=row2[j++];
+//         count++;
+//     }
+//     while(count<k){
+//         if(i<m)res=row1[i++];
+//         else if(j<n)res=row2[j++];
+//         count++;
+//     }
+    
+//     return res;
+//     vector<int>v;
+//         for(int i=0;i<m;i++){
+//             v.push_back(row1[i]);
+//         }
+//         for(int i=0;i<n;i++){
+//             v.push_back(row2[i]);
+//         }
+//         sort(v.begin(),v.end());
+//         return v[k-1];
+    if(m>n) return ninjaAndLadoos(row2,row1,n,m,k);
+    if(m==0)return row2[k-1];
+    if(k==1)return min(row1[0],row2[0]);
+    int i=min(m,k/2);
+    int j=min(n,k/2);
+    if(row1[i-1]>row2[j-1]){
+        vector<int> newrow;
+        newrow.assign(row2.begin()+j,row2.end());
+        return ninjaAndLadoos(row1,newrow,m,n-j,k-j);
+    }
+     vector<int> newrow;
+        newrow.assign(row1.begin()+i,row1.end());
+        return ninjaAndLadoos(newrow,row2,m-i,n,k-i);
+    return 0;
+    
+}
