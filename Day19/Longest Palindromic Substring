@@ -1,0 +1,26 @@
+#include<string.h>
+string longestPalinSubstring(string str)
+{
+    // Write your code here.
+    int n =str.size();
+    if(n==0)return "";
+    bool dp[n][n];
+    memset(dp,0,sizeof(dp));
+    for(int i=0;i<n;i++)
+        dp[i][i]=1;
+    string ans="";
+    ans+=str[0];
+    for(int i=n-1;i>=0;i--){
+        for(int j =i+1;j<n;j++){
+            if(str[i]==str[j])
+                if(j-i==1||dp[i+1][j-1])
+            {
+                dp[i][j]=1;
+                if(ans.size()<=j-i+1){
+                    ans=str.substr(i,j-i+1);
+                }
+            }
+        }
+    }
+    return ans;
+}
