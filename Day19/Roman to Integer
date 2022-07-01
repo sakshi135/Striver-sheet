@@ -1,0 +1,15 @@
+#include<unordered_map>
+unordered_map<char,int> value={{'I',1},{'V',5},{'X',10},{'L',50},{'C',100},{'D',500},{'M',1000}};
+int romanToInt(string s) {
+    // Write your code here
+    int result=0,n=s.size();
+    for(int i=0;i<n;i++){
+        if(i<n&&value[s[i+1]]>value[s[i]]){
+            result+=value[s[i+1]]-value[s[i]];
+            i++;
+        }
+        else result+=value[s[i]];
+    }
+    return result;
+    
+}
