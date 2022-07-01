@@ -1,0 +1,22 @@
+string common(string prefix,string s){
+    string result;
+    int n1 =prefix.size();
+    int n2=s.size();
+    for(int i=0,j=0;i<n1&&j<n2;i++,j++){
+        if(prefix[i]==s[j])
+            result.push_back(prefix[i]);
+        else break;
+    }
+    return result;
+}
+string longestCommonPrefix(vector<string> &arr, int n)
+{
+    // Write your code here
+    string prefix=arr[0];
+    for(int i=1;i<n;i++){
+        prefix=common(prefix,arr[i]);
+    }
+    return prefix.size()?prefix:"";
+}
+
+
