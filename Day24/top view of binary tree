@@ -1,0 +1,41 @@
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+#include<map>
+vector<int> getTopView(TreeNode<int> *root) {
+    // Write your code here.
+    if(!root)return {};
+    queue<pair<TreeNode<int>*,int>>q;
+    map<int,int>m;
+    q.push({root,0});
+    
+    while(!q.empty()){
+        TreeNode<int>*t=q.front().first;
+        int hd=q.front().second;
+        q.pop();
+        if(m.find(hd)==m.end())m[hd]=t->val;
+            if(t->left)q.push({t->left,hd-1});
+        if(t->right)q.push({t->right,hd+1});
+    }
+    vector<int> v;
+    for(auto it:m){
+        v.push_back(it.second);
+    }
+    return v;
+}
