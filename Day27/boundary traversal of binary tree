@@ -1,0 +1,58 @@
+/************************************************************
+
+    Following is the Binary Tree node structure:
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+ vector<int> ans;
+void leaf(TreeNode<int>*root){
+    if(!root)return ;
+    if(!root->left&&!root->right)ans.push_back(root->data);
+    leaf(root->left);
+    leaf(root->right);
+}
+void left(TreeNode<int>*root){
+    if(!root||(!root->left&&!root->right))return ;
+    ans.push_back(root->data);
+    left(root->left);
+    if(!root->left&&root->right)left(root->right);
+}
+void right(TreeNode<int>*root){
+    if(!root||(!root->left&&!root->right))return ;
+    right(root->right);
+    if(!root->right&&root->left)right(root->left);
+    ans.push_back(root->data);
+}
+
+vector<int> traverseBoundary(TreeNode<int>* root){
+    // Write your code here.
+    if(!root)return {};
+   ans.clear();
+   ans.push_back(root->data);
+    if(!root->left&&!root->right)return ans;
+    left(root->left);
+    leaf(root);
+    right(root->right);
+   return ans;
+    
+}
