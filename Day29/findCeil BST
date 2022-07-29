@@ -1,0 +1,40 @@
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    class BinaryTreeNode {
+    public:
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+        
+        BinaryTreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+        
+        ~BinaryTreeNode() {
+            if (left) {
+              delete left;
+            }
+            if (right) {
+              delete right;
+            }
+        }
+    };
+
+************************************************************/
+
+int findCeil(BinaryTreeNode<int> *node, int x){
+    // Write your code here.
+    if(!node)return -1;
+    if(node->data==x)return node->data;
+    if(node->data>x){
+        int y=findCeil(node->left,x);
+        if(y==-1)return node->data;
+        return y;
+        
+    }
+        else return findCeil(node->right,x);
+}
