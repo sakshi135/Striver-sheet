@@ -1,0 +1,36 @@
+/*************************************************************
+ 
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+void inorder(BinaryTreeNode<int>*root,vector<int>&in){
+    if(!root)return;
+    inorder(root->left,in);
+    in.push_back(root->data);
+    inorder(root->right,in);
+}
+bool validateBST(BinaryTreeNode<int> *root) {
+    // Write your code here
+    if(!root)return true;
+    vector<int> in ;
+    inorder(root,in);
+    for(int i=0;i<in.size()-1;i++){
+        if(in[i]>in[i+1])
+            return false;
+    }
+    return true;
+}
