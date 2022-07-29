@@ -1,0 +1,45 @@
+/*************************************************************
+
+    Following is the Binary Tree node structure
+
+    template <typename T>
+
+    class TreeNode{
+    public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+        ~TreeNode() {
+            if (left){
+                delete left;
+            }
+            if (right){
+                delete right;
+            }
+        }
+    };
+
+*************************************************************/
+
+TreeNode<int>* preOrderTree(vector<int> &preOrder){
+    // Write your code here.
+    if(preOrder.size()==0)return NULL;
+    TreeNode<int>*r= new TreeNode<int>(preOrder[0]);
+    vector<int>left,right;
+    for(int i=1;i<preOrder.size();i++){
+        if(preOrder[i]<preOrder[0])left.push_back(preOrder[i]);
+       else right.push_back(preOrder[i]);
+        
+    }
+    r->left=preOrderTree(left);
+    r->right=preOrderTree(right);
+    return r;
+    
+    
+}
