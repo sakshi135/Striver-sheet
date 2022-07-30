@@ -1,0 +1,91 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+string serializeTree(TreeNode<int> *root)
+{
+ //    Write your code here for serializing the tree
+    
+    string s="";
+//     if(!root)return s;
+    queue<TreeNode<int>*>q;
+    q.push(root);
+    while(!q.empty()){
+        TreeNode<int>*t=q.front();
+        q.pop();
+        if(!t)s.append("-1,");
+        else{
+            s.append(to_string(t->data));
+            s.push_back(',');
+            q.push(t->left);
+            q.push(t->right);
+        }
+    }
+    return s;
+
+}
+
+TreeNode<int>* deserializeTree(string &s)
+{
+ //    Write your code here for deserializing the tree
+   int i=0;
+    string firstval="";
+    while(i<s.size()&&s[i]!=','){
+        firstval.push_back(s[i]);
+        i++;
+    }
+    i++;
+    int val=stoi(firstval);
+    if(val==-1)return NULL;
+    TreeNode<int>*r=new TreeNode<int>(val);
+    queue<TreeNode<int>*>q;
+    q.push(r);
+    
+    while(!q.empty()){
+        TreeNode<int>*t=q.front();
+        q.pop();
+       string left="";
+         while(i<s.size()&&s[i]!=','){
+        left.push_back(s[i]);
+        i++;
+    }
+        i++;
+        string right="";
+         while(i<s.size()&&s[i]!=','){
+        right.push_back(s[i]);
+        i++;
+    }
+        i++;
+        int lval=stoi(left);
+        int rval=stoi(right);
+        if(lval!=-1)
+        { t->left=new TreeNode<int>(lval);
+             q.push(t->left);}
+        if(rval!=-1)
+         {t->right=new TreeNode<int>(rval);   
+              q.push(t->right);}
+        
+    }
+    return r;
+    
+
+}
+
+
+
