@@ -1,0 +1,15 @@
+void dfs(vector<vector<int>> &image, int x, int y, int color,int newColor){
+    if(x<0||x>=image.size()||y<0||y>=image[0].size()||image[x][y]!=color||image[x][y]==newColor)return ;
+    image[x][y]=newColor;
+    dfs(image,x+1,y,color,newColor);
+     dfs(image,x,y+1,color,newColor);
+     dfs(image,x-1,y,color,newColor);
+     dfs(image,x,y-1,color,newColor);
+}
+vector<vector<int>> floodFill(vector<vector<int>> &image, int x, int y, int newColor)
+{
+    // Write your code here.
+    int color=image[x][y];
+    dfs(image,x,y,color,newColor);
+    return image;
+}
