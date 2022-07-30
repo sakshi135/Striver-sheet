@@ -1,0 +1,66 @@
+/************************************************************
+
+    Following is the Binary Tree node structure
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+
+// bool isBST(TreeNode<int>*root,int min,int max){
+//     if(!root)return true;
+//     if(root->data<min||root->data>max)return false;
+// return isBST(root->left,min,root->data-1)&&isBST(root->right,root->data+1,max);
+// }
+
+// int height(TreeNode<int>*root){
+//     if(!root)return 0;
+// return 1+height(root->left)+height(root->right);
+// }
+struct info{
+    bool isValid;
+    int size,min,max;
+    
+};
+info maxSize(TreeNode<int>*root,int &maxBST){
+    if(!root)return {true,0,INT_MAX,INT_MIN};
+    info left=maxSize(root->left,maxBST);
+    info right=maxSize(root->right,maxBST);
+    info curr;
+    curr.size=1+left.size+right.size;
+    curr.isValid=left.isValid&&right.isValid&&(root->data>left.max&&
+                                               root->data<right.min);
+       curr.min=min(min(left.min,right.min),root->data);
+    curr.max=max(max(left.max,right.max),root->data);
+    if(curr.isValid)
+        maxBST=max(maxBST,curr.size);
+    return curr;
+        
+}
+
+int largestBST(TreeNode<int>* root) 
+{int maxBST=0;
+ maxSize(root,maxBST);
+ return maxBST;
+    // Write your c
+
+
+}
