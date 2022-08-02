@@ -1,0 +1,29 @@
+bool dfs(int src,vector<int>adj[],vector<bool>&vis,vector<bool>&dfsvis){
+    vis[src]=true;
+    dfsvis[src]=true;
+    for(auto it:adj[src]){
+        if(!vis[it]){
+            if(dfs(it,adj,vis,dfsvis))return true;
+        }
+        else if(dfsvis[it])return true;
+    }
+    dfsvis[src]=false;
+    return false;
+}
+
+int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
+  // Write your code here.
+    vector<int>adj[n+1];
+    for(int i=0;i<edges.size();i++){
+        adj[edges[i].first].push_back(edges[i].second);
+//         adj[edges[i].second].push_back(edges[i].first);  
+    }
+    vector<bool>vis(n+1,false);
+    vector<bool>dfsvis(n+1,false);
+    for(int i=1;i<=n;i++){
+        if(!vis[i]){
+            if(dfs(i,adj,vis,dfsvis))return true;
+        }
+    }
+    return false;
+}
