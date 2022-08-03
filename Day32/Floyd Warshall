@@ -1,0 +1,31 @@
+int inf=1000000000;
+int floydWarshall(int n, int m, int src, int dest, vector<vector<int>> &edges) {
+    // Write your code here.
+//     if(src==dest)return 0;
+    int mat[n+1][n+1];
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+          if(i==j)  mat[i][j]=0;
+            else mat[i][j]=inf;
+        }
+    }
+    
+    for(auto it:edges){
+//         if(it[0]==it[1])mat[it[0]][it[1]]=0;
+        mat[it[0]][it[1]]=it[2];
+    }
+      for(int k=1;k<=n;k++){
+            for(int i=1;i<=n;i++){
+                for(int j=1;j<=n;j++){
+//                     if(mat[i][k]==inf||mat[k][j]==inf)continue;
+//                     if(mat[i][j]==inf)mat[i][j]=mat[i][k]+mat[k][j];
+//                     else mat[i][j]=min(mat[i][j],mat[i][k]+mat[k][j]);
+                        if (mat[i][k] != inf && mat[k][j] != inf)
+                {
+                    mat[i][j] = min(mat[i][j], mat[i][k] + mat[k][j]);
+                }
+                }
+            }
+        }
+   return mat[src][dest];
+}
